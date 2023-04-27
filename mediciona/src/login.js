@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 export const setToLocalStorange = (key, value) => {
-    localStorage.setItem(key, JSON.stringify((value)));
+    localStorage.setItem(key, value);
 }
 export const getFromLocalStorange = (key) =>{
     const value = localStorage.getItem(key);
@@ -24,33 +25,33 @@ const Login = () =>  {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const Login = async ({Password, usuario}) => {
+        const Login = async () => {
             try {
-                const response = await axios.post("https://backend-dummy.hospitaldeespecialidades.com.sv/api/auth/login",{
-                Usuario,
-                Password
+                const response = await axios.post("https://backend-dummy.hospitaldeespecialidades.com.sv/api/auth/login",
+                {
+                    usuario: Usuario,
+                    password: Password
                 })
                 if(response.status === 200){
-
+                    
                 }
 
-                const {jwt, Usuario} = await response.data();
-                setToLocalStorange("token", jwt);
-                setToLocalStorange("usuario", Usuario)
+                const { token } = await response.data();
+                setToLocalStorange("token", token);
+                // setToLocalStorange("usuario", Usuario)
                 console.log(response)
             } catch(e){
                 console.log(e)
 
             }
     }
-    setPassword('');
-    setPassword('');
+    Login()
 };
 return (
     <form onSubmit={handleSubmit}>
     <input type="input" value={Usuario} onChange={handleUsuarioChange} placeholder="Usuario" />
     <input type="password" value={Password} onChange={handlePasswordChange} placeholder="Contraseña" />
-    <button type="submit">Iniciar sesión</button>
+    <button onClick={handleSubmit} type="submit">Iniciar sesión</button>
   </form>
 );
 };

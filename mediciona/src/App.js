@@ -5,7 +5,7 @@ import Login from './login';
 const medicina = () =>{
   return (
     <div>
-      <h1>Sistema de Inicio de Sesión</h1>
+      <h1>medicina</h1>
       <Login />
     </div>
   );
